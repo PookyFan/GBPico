@@ -1,3 +1,11 @@
+
 #include "GbEmu/CpuContext.hpp"
 
-void test() {}
+
+namespace GbEmu
+{
+void CpuContext::tick()
+{
+    //todo
+}
+}
