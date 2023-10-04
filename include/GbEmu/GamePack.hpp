@@ -2,18 +2,19 @@
 
 #include "GbEmu/commonTypes.hpp"
 #include "GbEmu/internalUtils.hpp"
+#include "testEnabler.hpp"
 
 namespace GbEmu
 {
     class GamePack
     {
         public:
-            void write(MemoryAddress addr, Byte value)
+            mockable void write(MemoryAddress addr, Byte value)
             {
                 //todo
             }
 
-            MemoryAccessResult read(MemoryAddress addr) const
+            mockable MemoryAccessResult read(MemoryAddress addr) const
             {
                 //todo
                 return {};

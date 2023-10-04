@@ -13,6 +13,11 @@ constexpr auto fixEchoMemoryAddress(MemoryAddress addr)
 }
 }
 
+MemoryContext::MemoryContext(GamePack& gp, HardwareContext& hwCtxt)
+    : gameMemory(gp), lcdMemory(0x8000), staticWorkingMemory(0xC000), bankedWorkingMemory(0xD000),
+      objectsMemory(0xFE00), hwRegistersMemory(hwCtxt), highRamMemory(0xFF80)
+{}
+
 void MemoryContext::writeMemory(MemoryAddress addr, Byte value)
 {
    getMemoryOperationOperands(addr).writeMemory(value);

@@ -3,6 +3,7 @@
 #include <array>
 #include "GbEmu/commonTypes.hpp"
 #include "utils.hpp"
+#include "testEnabler.hpp"
 
 namespace GbEmu
 {
@@ -13,8 +14,8 @@ constexpr auto HardwareRegistersCount = asIndex(HardwareRegisters::Invalid);
 class HardwareContext
 {
     public:
-        void setHwRegister(HardwareRegisters regId, Byte value);
-        Byte getHwRegister(HardwareRegisters regId);
+        mockable void setHwRegister(HardwareRegisters regId, Byte value);
+        mockable Byte getHwRegister(HardwareRegisters regId);
 
     private:
         std::array<Byte, HardwareRegistersCount> hwRegsValues;

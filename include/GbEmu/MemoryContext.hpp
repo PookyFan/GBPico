@@ -23,6 +23,7 @@ class MemoryContext
     };
 
     public:
+        MemoryContext(GamePack& gp, HardwareContext& hwCtxt);
         void writeMemory(MemoryAddress addr, Byte value);
         MemoryAccessResult readMemory(MemoryAddress addr);
 

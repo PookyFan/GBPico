@@ -91,7 +91,7 @@ class StaticMemoryRegion : public GenericMemoryRegion
     protected:
         using Index = MemoryAddress;
 
-        virtual Index getIndex(MemoryAddress addr)
+        virtual Index getIndex(MemoryAddress addr) const
         {
             return addr -= baseAddress;
         }
@@ -117,7 +117,7 @@ class BankedMemoryRegion : public StaticMemoryRegion<Size * BanksCount>
     private:
         unsigned currentBankNumber;
 
-        typename BaseT::Index getIndex(MemoryAddress addr) override
+        typename BaseT::Index getIndex(MemoryAddress addr) const override
         {
             return currentBankNumber * Size + BaseT::getIndex(addr);
         }
