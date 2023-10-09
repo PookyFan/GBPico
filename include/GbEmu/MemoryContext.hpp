@@ -16,7 +16,7 @@ class MemoryContext
             region.write(address, value);
         }
 
-        MemoryAccessResult readMemory()
+        Byte readMemory()
         {
             return region.read(address);
         }
@@ -25,7 +25,7 @@ class MemoryContext
     public:
         MemoryContext(GamePack& gp, HardwareContext& hwCtxt);
         void writeMemory(MemoryAddress addr, Byte value);
-        MemoryAccessResult readMemory(MemoryAddress addr);
+        Byte readMemory(MemoryAddress addr);
 
     private:
     //todo: fields order may impact final size of the class, for now their order is per memory map from manual

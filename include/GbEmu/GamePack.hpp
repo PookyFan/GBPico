@@ -14,7 +14,7 @@ namespace GbEmu
                 //todo
             }
 
-            mockable MemoryAccessResult read(MemoryAddress addr) const
+            mockable Byte read(MemoryAddress addr) const
             {
                 //todo
                 return {};

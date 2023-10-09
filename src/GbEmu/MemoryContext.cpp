@@ -23,7 +23,7 @@ void MemoryContext::writeMemory(MemoryAddress addr, Byte value)
    getMemoryOperationOperands(addr).writeMemory(value);
 }
 
-MemoryAccessResult MemoryContext::readMemory(MemoryAddress addr)
+Byte MemoryContext::readMemory(MemoryAddress addr)
 {
     return getMemoryOperationOperands(addr).readMemory();
 }

@@ -13,7 +13,7 @@ class GenericMemoryRegion
 {
     public:
         virtual void write(MemoryAddress addr, Byte value) = 0;
-        virtual MemoryAccessResult read(MemoryAddress addr) const = 0;
+        virtual Byte read(MemoryAddress addr) const = 0;
 };
 
 class DummyMemoryRegion : public GenericMemoryRegion
@@ -24,7 +24,7 @@ class DummyMemoryRegion : public GenericMemoryRegion
         {
         }
 
-        MemoryAccessResult read(MemoryAddress) const override
+        Byte read(MemoryAddress) const override
         {
             return dummyValue;
         }
@@ -41,7 +41,7 @@ class GamePackRegion : public GenericMemoryRegion
             gamePack.write(addr, value);
         }
 
-        MemoryAccessResult read(MemoryAddress addr) const override
+        Byte read(MemoryAddress addr) const override
         {
             return gamePack.read(addr);
         }
@@ -61,7 +61,7 @@ class HwRegistersRegion : public GenericMemoryRegion
             hwContext.setHwRegister(regId, value);
         }
 
-        MemoryAccessResult read(MemoryAddress addr) const override
+        Byte read(MemoryAddress addr) const override
         {
             auto regId = getHwRegIdByAddress(addr);
             return hwContext.getHwRegister(regId);
@@ -83,7 +83,7 @@ class StaticMemoryRegion : public GenericMemoryRegion
             storage[getIndex(addr)] = value;
         }
 
-        MemoryAccessResult read(MemoryAddress addr) const override
+        Byte read(MemoryAddress addr) const override
         {
             return storage[getIndex(addr)];
         }

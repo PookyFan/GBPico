@@ -32,7 +32,7 @@ struct MemoryContextTestFixture : Test
 
 TEST_F(MemoryContextTestFixture, MemoryCtxtShouldMapMemoryAccessesToGamePackAndHwCtxt)
 {
-    EXPECT_CALL(gamePackMock, read(GAME_PACK_ADDR_1)).WillRepeatedly(Return(MemoryAccessResult{}));
+    EXPECT_CALL(gamePackMock, read(GAME_PACK_ADDR_1)).WillRepeatedly(Return(VALUE1));
     EXPECT_CALL(gamePackMock, write(GAME_PACK_ADDR_2, VALUE1));
     EXPECT_CALL(hwCtxtMock, getHwRegister(HardwareRegisters::P1)).WillRepeatedly(Return(VALUE1));
     EXPECT_CALL(hwCtxtMock, setHwRegister(HardwareRegisters::IE, VALUE1));
@@ -54,22 +54,12 @@ TEST_F(MemoryContextTestFixture, MemoryCtxtShouldMapHighMemoryAccessEitherToHwRe
         testedObj.writeMemory(addr, addr & 0xFF);
     
     for(MemoryAddress addr = 0xFF00; addr < 0xFF80; ++addr)
-    {
-        auto access = testedObj.readMemory(addr);
-        EXPECT_TRUE(access.completed);
-        EXPECT_EQ(access.value, VALUE1);
-    }
+        EXPECT_EQ(testedObj.readMemory(addr), VALUE1);
 
     for(MemoryAddress addr = 0xFF80; addr < 0xFFFF; ++addr)
-    {
-        auto access = testedObj.readMemory(addr);
-        EXPECT_TRUE(access.completed);
-        EXPECT_EQ(access.value, addr & 0xFF);
-    }
+        EXPECT_EQ(testedObj.readMemory(addr), addr & 0xFF);
 
-    auto access = testedObj.readMemory(0xFFFF);
-    EXPECT_TRUE(access.completed);
-    EXPECT_EQ(access.value, VALUE1);
+    EXPECT_EQ(testedObj.readMemory(0xFFFF), VALUE1);
 }
 
 }
