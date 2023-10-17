@@ -6,16 +6,17 @@
 
 namespace GbEmu
 {
-using Register = std::uint_fast8_t;
-using DoubleRegister = std::uint_fast16_t;
+using Register = std::uint8_t;
+using DoubleRegister = std::uint16_t;
 
-enum class GeneralRegisters {A, B, C, D, E, H, L};
+enum class GeneralRegisters {F, A, C, B, E, D, L, H};
 enum class SpecialRegisters {PC, SP};
-enum class PairRegisters    {BC = asIndex(GeneralRegisters::B),
-                             DE = asIndex(GeneralRegisters::D),
-                             HL = asIndex(GeneralRegisters::H)};
+enum class PairRegisters    {AF = asIndex(GeneralRegisters::F),
+                             BC = asIndex(GeneralRegisters::C),
+                             DE = asIndex(GeneralRegisters::E),
+                             HL = asIndex(GeneralRegisters::L)};
 
-constexpr auto GeneralRegistersCount = asIndex(GeneralRegisters::L) + 1;
+constexpr auto GeneralRegistersCount = asIndex(GeneralRegisters::H) + 1;
 constexpr auto SpecialRegistersCount = asIndex(SpecialRegisters::SP) + 1;
 
 class CpuRegisters
@@ -31,10 +32,10 @@ class CpuRegisters
             return specialRegisters[asIndex(reg)];
         }
 
-        DoubleRegister operator[](PairRegisters reg) const
+        DoubleRegister& operator[](PairRegisters reg)
         {
             auto index = asIndex(reg);
-            return (generalRegisters[index] << 8) | generalRegisters[index + 1];
+            return reinterpret_cast<DoubleRegister&>(generalRegisters[index]);
         }
 
     private:
